@@ -1,18 +1,3 @@
---[[
-    Octohook
-    -> Made by @finobe 
-    -> Kind of got bored idk what to do with life
-    -> Reason for leak: 
-    User was offered free features when the library was finished as compensation for the wait
-    Then proceeded to ask for more and started harassing other customers and me over petty shit. 
-    Yes this user said the library is TRASH somehow.. sob
-
-    Anyways bringing u this pretty sexy library I spent like a week on it maybe less. 
-    Esp preview took me a couple hours to make but holy the amount of bug fixing is insane
-
-    LIBRARY MAY HAVE MISSING OPTIMISATION THAT IS REQUIRED FOR 0 FPS LOSS WHEN DRAGGING / CLOSING THE MENU. 
-    ^^ Dont have to be worried about this its pretty darn optimised for the amount of elements I store 
-]]
 
 -- Variables 
     local InputService, HttpService, GuiService, RunService, Stats, CoreGui, TweenService, SoundService, Workspace, Players, Lighting = game:GetService("UserInputService"), game:GetService("HttpService"), game:GetService("GuiService"), game:GetService("RunService"), game:GetService("Stats"), game:GetService("CoreGui"), game:GetService("TweenService"), game:GetService("SoundService"), game:GetService("Workspace"), game:GetService("Players"), game:GetService("Lighting")
@@ -47,7 +32,7 @@
         preset = {
             inline = rgb(46, 46, 46),
             outline = rgb(10, 10, 15),
-            accent = rgb(19, 128, 225),
+            accent = rgb(234, 193, 255),
             background = rgb(20, 20, 25),              
             misc_1 = rgb(30, 30, 35),
             text_color = rgb(245, 245, 245),
@@ -1899,7 +1884,7 @@
                         Parent = Items.Background;
                         TextColor3 = themes.preset.accent;
                         TextStrokeColor3 = rgb(255, 255, 255);
-                        Text = 'octohook.xyz <font color = "rgb(235, 235, 235)">@placeholder / UID @ / Developer / 00/00/0000 / 00:00:00 / 0fps / Oms</font>';
+                        Text = 'rewind <font color = "rgb(235, 235, 235)">@placeholder / UID @ / cool user / 00/00/0000 / 00:00:00 / 0fps / Oms</font>';
                         Name = "\0";
                         AutomaticSize = Enum.AutomaticSize.XY;
                         BorderSizePixel = 0;
@@ -2015,7 +2000,7 @@
                     Cfg.Tick = Tick
 
                     local Uid = 1
-                    local Status = "Developer"
+                    local Status = "cool user"
                     local Ping = math.floor(Stats.PerformanceStats.Ping:GetValue())
                     Cfg.ChangeWatermarkTitle(string.format('%s <font color = "%s">/ UID %s / %s / %s / %sfps / %sms</font>', Cfg.Name, Library:ConvertHex(themes.preset.text_color), Uid, Status, os.date("%x / %X"), Cfg.Fps, Ping))
 
@@ -4928,7 +4913,7 @@
                 Section:Slider({Name = "Dragging Speed", Min = 0, Max = 1, Decimal = .01, Default = .05, Callback = function(num)
                     Library.DraggingSpeed = num
                 end})
-                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
+                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.RightControl, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
@@ -4939,9 +4924,6 @@
                 Section:Toggle({Name = "Toggle Keybind List", Callback = function(bool)
                     Library.KeybindList.Items.Holder.Visible = bool 
                     Library.KeybindList.Items.List.Visible = bool 
-                end})
-                Section:Textbox({Name = "Custom Menu Name", Default = Window.Name, Callback = function(text)
-                    Window.Name = text
                 end})
                 Section:Dropdown({Name = "Font", Options = FontIndexes, Callback = function(option)
                     for _,text in themes.utility.text_color.TextColor3 do 
@@ -4959,14 +4941,6 @@
                     if Window.Items.Holder.Visible then 
                         Library.Blur.Size = int
                     end 
-                end})
-                Section:Button({Name = "Test", Callback = function()
-                    local Notification = Library:Notification({Name = "Hello there!", Lifetime = 5})
-                    Notification:NotificationButton({Name = "Discard", Callback = function()
-                        Notification.DestroyNotif()
-                    end})
-                    Notification:NotificationButton({Name = "Make another", Callback = function()
-                    end})
                 end})
             -- 
         end
@@ -7366,17 +7340,23 @@
                 Options.Enabled = bool
             end, Flag = Cfg.Name .. "_GLOBAL_ENABLED"})
 
-            self.Section:Slider({
-                Name = "Max Render Distance", 
-                Min = 0, 
-                Max = 10000, 
-                Default = 10000, 
-                Decimal = 5,
-                Flag = Cfg.Name .. "_RENDER_DISTANCE",
-                Callback = function(int)
-                    Options["Render Distance"] = int
-                end 
-            })
+-- Remove or comment out the slider creation block
+-- self.Section:Slider({
+--     Name = "Max Render Distance", 
+--     Min = 0, 
+--     Max = 10000, 
+--     Default = 10000, 
+--     Decimal = 5,
+--     Flag = Cfg.Name .. "_RENDER_DISTANCE",
+--     Callback = function(int)
+--         Options["Render Distance"] = int
+--     end 
+-- })
+
+		local renderDistance = 500
+		Options["Render Distance"] = renderDistance
+-- If there's a function or system that uses the callback, you can call it explicitly:
+-- SomeFunctionThatUsesRenderDistance(renderDistance)
 
             if Cfg.Chams then 
                 local Toggle = self.Section:Toggle({Name = Cfg.Name .. " Chams", Callback = function(bool)
@@ -8096,7 +8076,7 @@
                 end 
 
                 local Humanoid = Data.Info.Humanoid
-                local Multiplier = Value / 100
+                local Multiplier = Value / 150
                 local isHorizontal = MiscOptions.Healthbar_Position == "Top" or MiscOptions.Healthbar_Position == "Bottom"
 
                 local Color = MiscOptions.Healthbar_Low.Color:Lerp(MiscOptions.Healthbar_Medium.Color, Multiplier)
